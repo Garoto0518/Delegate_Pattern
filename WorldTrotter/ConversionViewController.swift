@@ -26,12 +26,22 @@ class ConversionViewController: UIViewController{ //, UITextFieldDelegate {
         let existingTextHasDecimalSeparator = textField.text?.range(of: ".")
         let replacementTextHasDecimalSeparator = string.range(of: ".")
         
-        if existingTextHasDecimalSeparator != nil && replacementTextHasDecimalSeparator != nil {
+        if existingTextHasDecimalSeparator != nil && replacementTextHasDecimalSeparator != nil && string.rangeOfCharacter(from: CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")) == nil{
             return false
         } else {
             return true
         }
     }
+    /*
+    func containsOnlyLetters(input: String) -> Bool {
+        for chr in input {
+            if (!(chr >= "a" && chr <= "z") && !(chr >= "A" && chr <= "Z") ) {
+                return false
+            }
+        }
+        return true
+    }
+ */
     // DELEGATE METHOD : textFieldDidBeginEditing - is called when the user selects the text field
     // TODO: Add and modify the method to build expectation for the output by changing the celsiusLabel when the input field is selected
     // modify the celsiusLabel text to be a single question mark
@@ -64,8 +74,9 @@ class ConversionViewController: UIViewController{ //, UITextFieldDelegate {
     func updateCelsiusLabel() {
         if let celsiusValue = celsiusValue {
             celsiusLabel.text = numberFormatter.string(from: NSNumber(value: celsiusValue.value))
+            celsiusLabel.textColor = UIColor(red: 0.60, green: 0.60, blue: 0.40, alpha: 10)
         } else {
-            celsiusLabel.text = "???"
+            celsiusLabel.text = "?"
         }
     }
     // Limits the number of decimal places in the output label to 1
